@@ -1,6 +1,6 @@
 // a preview with basic book details
-import { bookService } from "../services/book.service.jsx"
-
+import { bookService } from "../services/book.service.js"
+import {  } from "../assets/img/";
 const { useEffect, useState } = React
 
 export function BookDetails({ bookId, onBack }) {
@@ -18,6 +18,7 @@ export function BookDetails({ bookId, onBack }) {
         <div className="book-details">
             <h2>{book.title}</h2>
             <h4>{book.subtitle}</h4>
+            <img src={`../assets/img/${book.thumbnail}`} alt="" />
             <h5><span>Description: </span>{book.description}</h5>
             <h5><span>Authors: </span> {book.authors.join(' ')}</h5>
             <h5><span>Published Date: </span> {book.publishedDate}</h5>

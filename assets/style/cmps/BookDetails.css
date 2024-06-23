@@ -39,3 +39,10 @@
     align-self: left;
     border: 1px solid black;
 }
+
+.book-details img {
+    display: block;
+    width:200px;
+    
+
+}
