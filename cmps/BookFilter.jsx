@@ -38,22 +38,33 @@ export function BookFilter({ filterBy, onSetFilter }) {
     const { title, price } = filterByToEdit
 
     return (
-        <div className="book-filter">
-            <form onSubmit={onSetFilter}>
-                <label htmlFor="title">Title</label>
-                <input
-                    type="text"
-                    placeholder="Filter by name"
-                    name="title"
-                    id="title"
-                    onChange={(ev) => filterBooks('name', ev.target.value)}
-                />
+        <section className="book-filter">
+            <h2>Filter Our Books</h2>
+            <form onSubmit={onSubmitFilter}>
+                <div>
+                    <label htmlFor="title">Title</label>
+                    <input
+                        type="text"
+                        value={title}
+                        onChange={handleChange}
+                        name="title"
+                        placeholder="Filter by title"
+                        id="title"
+                    />
+                </div>
+                <div>
+                <label htmlFor="price">Price</label>
                 <input
                     type="number"
+                    value={price || ''}
+                    onChange={handleChange}
+                    name="price"
+                    id="price"
                     placeholder="Filter by price"
-                    onChange={(ev) => filterBooks('price', ev.target.value)}
                 />
+                </div>
+                <button>Submit</button>
             </form>
-        </div>
+        </section>
     )
 }

@@ -7,13 +7,11 @@
     
     list-style: none;
     padding: 0;
-    margin: 0;
-
-    
+    margin: 0; 
 }
 
 .book-preview {
-    width: 250px;
+    width: 300px;
     padding-inline: 10px;
 
 

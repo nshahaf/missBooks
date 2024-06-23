@@ -16,8 +16,18 @@ export const bookService = {
     getDefaultFilter,
 }
 
-function query(filterBy = null) {//Need update
+function query(filterBy = {}) {//updated
     return storageService.query(BOOK_KEY)
+    .then(books => {
+        if(filterBy.title) {
+            const regExp = new RegExp(filterBy.title, 'i')
+            books = books.filter(book => regExp.test(book.title))
+        }
+        if (filterBy.price) {
+            books = books.filter(book => book.listPrice.amount >= filterBy.price)
+        }
+        return books
+    })
 }
 
 function get(bookId) {//updated
