@@ -13,41 +13,28 @@
 }
 
 .book-preview {
-    width: 300px;
+    width: 250px;
     padding-inline: 10px;
 
 
     border-radius: 20px;
     background-color: var(--clr1bg);
-    box-shadow: 4px 4px 4px 1px;
-    
-    
 }
 
 .book-preview * {
+    text-align: center;
     font-family: 'Times New Roman', Times, serif;
     font-weight: 400;
+    font-size: 16px;
 }
 
 .book-preview span {
+    font-weight: 600;
     color: darkblue;
+}
+
+.book-preview h1 {
+    text-transform: capitalize;
+    font-size: 22px;
     font-weight: 600;
-}
-
-.book-preview h2 {
-    font-size: 1.5em;
-    font-weight: 700;
-    text-align: center;
-
-}
-
-.book-preview h4 {
-    font-size: 1.2em;
-    font-weight: 600;
-
-}
-
-.book-preview h5 {
-    font-size: 1em;
-
 }

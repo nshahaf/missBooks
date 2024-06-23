@@ -1,0 +1,10 @@
+.book-filter {
+    display: flex;
+    gap: 20px;
+    place-content: center;
+    margin-block-end: 15px;
+}
+
+.book-filter > *{
+font-size: 20px;
+}
