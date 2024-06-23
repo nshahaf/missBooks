@@ -1,11 +1,11 @@
 //a simple welcome page
-import { UserPreview } from '../cmps/UserPreview.jsx'
+import { SimpleWelcome } from '../cmps/SimpleWelcome.jsx'
 
 export function Home() {
     return (
-        <section>
-            <h2>Home Sweet Home</h2>
-            <UserPreview />
+        <section className='home-page'>
+            <h2>Home Page</h2>
+            <SimpleWelcome />
         </section>
     )
 }

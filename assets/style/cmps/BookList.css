@@ -1,0 +1,53 @@
+.book-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    
+}
+
+.book-preview {
+    width: 300px;
+    padding-inline: 10px;
+
+
+    border-radius: 20px;
+    background-color: var(--clr1bg);
+    box-shadow: 4px 4px 4px 1px;
+    
+    
+}
+
+.book-preview * {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 400;
+}
+
+.book-preview span {
+    color: darkblue;
+    font-weight: 600;
+}
+
+.book-preview h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: center;
+
+}
+
+.book-preview h4 {
+    font-size: 1.2em;
+    font-weight: 600;
+
+}
+
+.book-preview h5 {
+    font-size: 1em;
+
+}

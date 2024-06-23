@@ -1,14 +1,15 @@
 import { About } from "./pages/About.jsx";
-import { Home } from "./pages/Home.jsx";
 import { BookIndex } from "./pages/BookIndex.jsx";
+import { Home } from "./pages/Home.jsx";
 
 const { useState } = React
 
 export function App() {
-    const [page, setPage] = useState('home')
+
+    const [page, setPage] = useState('book')
 
     return (
-        <section className="app">
+        <section className="app-container">
             <header className="app-header">
                     <nav className="app-nav">
                         <a onClick={() => setPage('home')} href="#">Home</a>
@@ -16,10 +17,11 @@ export function App() {
                         <a onClick={() => setPage('book')} href="#">Books</a>
                     </nav>
             </header>
-            <main class="container">
+            
+            <main className="container">
                 {page === 'home' && <Home />}
                 {page === 'about' && <About />}
-                {page === 'car' && <BookIndex />}
+                {page === 'book' && <BookIndex />}
             </main>
         </section>
     )
