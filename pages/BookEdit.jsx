@@ -27,8 +27,8 @@ export function BookEdit() {
         bookService.save(bookToEdit)
             .then(() => {
                 navigate('/book')
+                showSuccessMsg(`Book saved successfully!`)
             })
-            .then(() => console.log('book saved!'))//replace with user msg
             .catch(err => console.log('err:', err))
     }
 

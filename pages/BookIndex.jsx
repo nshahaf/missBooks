@@ -3,7 +3,8 @@ const { Link } = ReactRouterDOM
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { BookList } from "../cmps/BookList.jsx"
 import { bookService } from "../services/book.service.js"
-import {BookDetails} from "../pages/BookDetails.jsx"  
+import { eventBusService, showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js";
+import { BookDetails } from "../pages/BookDetails.jsx"
 
 const { useEffect, useState } = React
 
@@ -25,8 +26,12 @@ export function BookIndex() {
         bookService.remove(bookId)
             .then(() => {
                 setBooks(books => books.filter(book => book.id !== bookId))
+                showSuccessMsg(`Book (${bookId}) removed successfully!`)
             })
-            .catch(err => { console.log('Had issues with:', err) })
+            .catch(err => {
+                console.log('Had issues with:', err)
+                showErrorMsg(`Having problems removing book!`)
+            })
     }
 
     function onSetFilter(filterBy) {
@@ -38,12 +43,12 @@ export function BookIndex() {
 
     return (
         <section className="book-index">
-                    <button><Link to="/book/edit">Add Book</Link></button>
-                    <BookFilter filterBy={filterBy} onSetFilter={onSetFilter}/>
-                    <BookList
-                        books={books}
-                        onRemoveBook={onRemoveBook}
-                    />
+            <button><Link to="/book/edit">Add Book</Link></button>
+            <BookFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+            <BookList
+                books={books}
+                onRemoveBook={onRemoveBook}
+            />
         </section>
     )
 }
