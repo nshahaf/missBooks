@@ -457,6 +457,7 @@ export const bookService = {
   setFilterBy,
   getDefaultFilter,
   createBookToEdit,
+  addReview,
 }
 
 function query(filterBy = {}) {//updated
@@ -586,6 +587,12 @@ function createBookToEdit(title = '', price = '') {
   }
 
   return book
+}
+
+function addReview(bookId, review) {
+  const book = get(bookId)
+  book.review = review
+  save(book)
 }
 
 
