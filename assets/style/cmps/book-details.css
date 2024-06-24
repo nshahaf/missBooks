@@ -46,3 +46,11 @@
     
 
 }
+
+.book-details h5.red {
+    color: red;
+}
+
+.book-details h5.green {
+    color: green;
+}
