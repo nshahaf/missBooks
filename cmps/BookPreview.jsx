@@ -2,15 +2,14 @@
 //recive a book and return a full details of the book
 
 export function BookPreview({ book }) {
-  const {title, authors, publishedDate, language,thumbnail, listPrice: { amount, currencyCode }} = book
-  return (
-    <React.Fragment>
-      <h1>{title}</h1>
-      <h2><span>Author:</span> {authors}</h2>
-      <h2><span>Published in:</span> {publishedDate}</h2>
-      <h2><span>Language:</span> {language}</h2>
-      <h2><span>List Price:</span> {amount} {currencyCode}</h2>
-      <img src={`../assets/img/${thumbnail}`} alt="" />
-    </React.Fragment>
-  )
+    const { title, authors, thumbnail, listPrice: { amount, currencyCode } } = book
+
+    return (
+        <React.Fragment>
+            <h1>{title}</h1>
+            <h2><span>Author:</span> {authors}</h2>
+            <img src={`../assets/img/${thumbnail}`} alt="" />
+            <h2><span>List Price:</span> {amount} {currencyCode}</h2>
+        </React.Fragment>
+    )
 }
