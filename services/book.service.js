@@ -458,6 +458,7 @@ export const bookService = {
   addReview,
   deleteReview,
   getLangStats,
+  getFilterFromSearchParams,
 }
 
 function query(filterBy = {}) {//updated
@@ -515,6 +516,15 @@ function getDefaultFilter() {
   return { title: '', price: 0 }
 }
 
+function getFilterFromSearchParams(searchParams) {
+  const defaultFilter = getDefaultFilter()
+  const filterBy = {}
+  for (const field in defaultFilter) {
+    filterBy[field] = searchParams.get(field) ||
+      defaultFilter[field]
+  }
+  return filterBy
+}
 function getFilterBy() {//updated
   return { ...gFilterBy }
 }
@@ -639,7 +649,7 @@ function getLangStats() {
     .then(books => {
       const bookCountByLanguageMap = getBookCountByLanguage(books)
       const chartData = Object.keys(bookCountByLanguageMap)
-      .map(key =>
+        .map(key =>
         ({
           label: key,
           value: Math.round((bookCountByLanguageMap[key] / books.length) * 100)

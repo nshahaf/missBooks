@@ -11,12 +11,12 @@ export function Dashboard() {
         bookService.query()
             .then((books => {
                 setBooks(books)
-                console.log(books)
+                // console.log(books)
             }))
         bookService.getLangStats()
             .then(stats => {
                 setLangStats(stats)
-                console.log(stats)
+                // console.log(stats)
             })
     }, [])
 
