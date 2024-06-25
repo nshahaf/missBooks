@@ -37,7 +37,7 @@ const booksDemoData = [
     "pageCount": 129,
     "categories": [
       "Computers",
-      "Hack"
+      "si-fi"
     ],
     "thumbnail": "14.jpg",
     "language": "sp",
@@ -58,9 +58,7 @@ const booksDemoData = [
     "description": "lorem molestie ut euismod ad quis mi ultricies nisl cursus suspendisse dui tempor sit suscipit metus etiam euismod tortor sagittis habitant",
     "pageCount": 972,
     "categories": [
-      "Computers",
-      "Hack"
-    ],
+      "romance"],
     "thumbnail": "2.jpg",
     "language": "he",
     "listPrice": {
@@ -80,8 +78,8 @@ const booksDemoData = [
     "description": "interdum inceptos mauris habitant primis neque tempus lacus morbi auctor cras consectetur euismod vehicula neque netus enim vivamus augue molestie imperdiet tincidunt aliquam",
     "pageCount": 303,
     "categories": [
-      "Computers",
-      "Hack"
+      "romance",
+      "si-fi"
     ],
     "thumbnail": "16.jpg",
     "language": "en",
@@ -459,6 +457,7 @@ export const bookService = {
   createBookToEdit,
   addReview,
   deleteReview,
+  getLangStats,
 }
 
 function query(filterBy = {}) {//updated
@@ -598,15 +597,15 @@ function addReview(bookId, review) {
   const newReview = { ..._createReview(), ...review }
   console.log(newReview)
   get(bookId).then(book => {
-    if(!book.reviews) book.reviews = []
+    if (!book.reviews) book.reviews = []
     book.reviews.push(newReview)
     save(book)
   })
-  .catch((err) => console.log(err))
+    .catch((err) => console.log(err))
 }
 
-function deleteReview(bookId,reviewId) {
-  get(bookId).then(book =>{
+function deleteReview(bookId, reviewId) {
+  get(bookId).then(book => {
     book.reviews = book.reviews.filter(review => review.id !== reviewId)
     console.log(`deleting ${reviewId}`)
     return save(book)
@@ -626,12 +625,37 @@ function _createReview() {
 
 function _setNextPrevBookId(book) {
   return storageService.query(BOOK_KEY).then((books) => {
-      const bookIdx = books.findIndex((currbook) => currbook.id === book.id)
-      const nextBook = books[bookIdx + 1] ? books[bookIdx + 1] : books[0]
-      const prevBook = books[bookIdx - 1] ? books[bookIdx - 1] : books[books.length - 1]
-      book.nextBookId = nextBook.id
-      book.prevBookId = prevBook.id
-      return book
+    const bookIdx = books.findIndex((currbook) => currbook.id === book.id)
+    const nextBook = books[bookIdx + 1] ? books[bookIdx + 1] : books[0]
+    const prevBook = books[bookIdx - 1] ? books[bookIdx - 1] : books[books.length - 1]
+    book.nextBookId = nextBook.id
+    book.prevBookId = prevBook.id
+    return book
   })
 }
+
+function getLangStats() {
+  return storageService.query(BOOK_KEY)
+    .then(books => {
+      const bookCountByLanguageMap = getBookCountByLanguage(books)
+      const chartData = Object.keys(bookCountByLanguageMap)
+      .map(key =>
+        ({
+          label: key,
+          value: Math.round((bookCountByLanguageMap[key] / books.length) * 100)
+        }))
+      return chartData
+    })
+}
+
+function getBookCountByLanguage(books) {
+  return books.reduce((map, book) => {
+    if (!map[book.language]) {
+      map[book.language] = 0;
+    }
+    map[book.language]++;
+    return map;
+  }, {});
+}
+
 
