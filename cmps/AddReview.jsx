@@ -1,6 +1,6 @@
 import { bookService } from "../services/book.service.js";
 
-export function AddReview() {
+export function AddReview({bookId}) {
     
     function onReviewSubmit(ev) {
         ev.preventDefault()
@@ -8,7 +8,7 @@ export function AddReview() {
         const rating = ev.target.rating.value
         const date = ev.target.date.value
         const review = {fullname,rating,date}
-        // bookService.addReview(bookId,review)
+        bookService.addReview(bookId,review)
     }
 
     return (

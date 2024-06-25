@@ -7,7 +7,6 @@ export function Home() {
         <section className='home-page'>
             <h2>Home Page</h2>
             <SimpleWelcome />
-            <AddReview/>
         </section>
     )
 }

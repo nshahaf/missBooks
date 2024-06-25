@@ -8,7 +8,7 @@ const booksDemoData = [
     "title": "metus hendrerit",
     "subtitle": "mi est eros convallis auctor arcu dapibus himenaeos",
     "authors": [
-      "Barbara Cartland"
+      "Barbara booktland"
     ],
     "publishedDate": 1999,
     "description": "placerat nisi sodales suscipit tellus tincidunt mauris elit sit luctus interdum ad dictum platea vehicula conubia fermentum habitasse congue suspendisse",
@@ -30,7 +30,7 @@ const booksDemoData = [
     "title": "morbi",
     "subtitle": "lorem euismod dictumst inceptos mi",
     "authors": [
-      "Barbara Cartland"
+      "Barbara booktland"
     ],
     "publishedDate": 1978,
     "description": "aliquam pretium lorem laoreet etiam odio cubilia iaculis placerat aliquam tempor nisl auctor",
@@ -458,6 +458,7 @@ export const bookService = {
   getDefaultFilter,
   createBookToEdit,
   addReview,
+  deleteReview,
 }
 
 function query(filterBy = {}) {//updated
@@ -476,6 +477,7 @@ function query(filterBy = {}) {//updated
 
 function get(bookId) {//updated
   return storageService.get(BOOK_KEY, bookId)
+    .then(book => _setNextPrevBookId(book))
 }
 
 function remove(bookId) {//updated
@@ -589,10 +591,47 @@ function createBookToEdit(title = '', price = '') {
   return book
 }
 
+
+
 function addReview(bookId, review) {
-  const book = get(bookId)
-  book.review = review
-  save(book)
+  if (!review.fullname) return
+  const newReview = { ..._createReview(), ...review }
+  console.log(newReview)
+  get(bookId).then(book => {
+    if(!book.reviews) book.reviews = []
+    book.reviews.push(newReview)
+    save(book)
+  })
+  .catch((err) => console.log(err))
 }
 
+function deleteReview(bookId,reviewId) {
+  get(bookId).then(book =>{
+    book.reviews = book.reviews.filter(review => review.id !== reviewId)
+    console.log(`deleting ${reviewId}`)
+    return save(book)
+  })
+}
+
+
+function _createReview() {
+  return {
+    id: utilService.makeId(),
+    fullname: 'new name',
+    rating: '0',
+    date: new Date().toISOString().slice(0, 10),
+    text: ''
+  }
+}
+
+function _setNextPrevBookId(book) {
+  return storageService.query(BOOK_KEY).then((books) => {
+      const bookIdx = books.findIndex((currbook) => currbook.id === book.id)
+      const nextBook = books[bookIdx + 1] ? books[bookIdx + 1] : books[0]
+      const prevBook = books[bookIdx - 1] ? books[bookIdx - 1] : books[books.length - 1]
+      book.nextBookId = nextBook.id
+      book.prevBookId = prevBook.id
+      return book
+  })
+}
 

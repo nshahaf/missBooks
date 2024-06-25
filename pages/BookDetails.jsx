@@ -1,6 +1,7 @@
 const { useParams, Link, Navigate} = ReactRouterDOM
 
 import { AddReview } from "../cmps/AddReview.jsx"
+import { Reviews } from "../cmps/Reviews.jsx"
 import { bookService } from "../services/book.service.js"
 
 const { useEffect, useState } = React
@@ -15,6 +16,8 @@ export function BookDetails() {
             .then(book => setBook(book))
             .catch(err => console.log(err))
     }, [bookId])
+
+    
 
     //handle page count text
     function getPageCount() {
@@ -57,9 +60,12 @@ export function BookDetails() {
                 <h5><span>Categories: </span> {book.categories.join(' ')}</h5>
                 <h5><span>Language: </span> {book.language}</h5>
                 <h5 className={getPriceClass()}><span >List Price: </span> {book.listPrice.amount} {book.listPrice.currencyCode}</h5>
+                <button ><Link to={`/book/${book.prevBookId}`}>Prev Book</Link></button>
+                <button ><Link to={`/book/${book.nextBookId}`}>Next Book</Link></button>
                 <button ><Link to="/book">Back</Link></button>
             </div>
-            <AddReview />
+            <AddReview bookId={bookId}/>
+            <Reviews book={book}/>
             
         </section>
 
